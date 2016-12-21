@@ -1,0 +1,33 @@
+header {
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+}
+
+footer span.link:not(:first-child)::before {
+    content: '•';
+    padding-right: 9px;
+    padding-left: 7px;
+}
+
+main {
+    margin: 20px auto;
+    max-width: 1000px;
+    padding: 10px 20px;
+    border-radius: 3px;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.05);
+}
+
+main>section>.heading {
+    font-size: 24px;
+}
+
+main>section>article {
+    padding: 10px 0;
+}
+
+.smiley {
+    font-size: 20px;
+}

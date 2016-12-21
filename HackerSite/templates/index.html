@@ -1,0 +1,82 @@
+{% extends 'sk/base.html' %} {% load humanize %} {% block content %}
+<style media="screen">
+    .sentiment-positive {
+        background: #e0f9e2;
+    }
+
+    .sentiment-negative {
+        background: #f9e9e5;
+    }
+
+    .sentiment-neutral {
+        background: #f2f9ff;
+    }
+
+    .glyphicon-minus,
+    .glyphicon-chevron-up,
+    .glyphicon-chevron-down,
+    .glyphicon-thumbs-up {
+        margin-right: 5px;
+    }
+
+    .glyphicon-minus {
+        color: dodgerblue;
+    }
+
+    .glyphicon-chevron-up {
+        color: green;
+    }
+
+    .glyphicon-chevron-down {
+        color: maroon;
+    }
+</style>
+<section>
+    <div class="heading">
+        <a href=".">Stories</a>
+    </div>
+
+    <div style="text-align:right;margin-top:-30px;">
+        <ul class="pagination" style="margin:0;">
+            {% if prev_page %}
+            <li><a href=".?page={{prev_page}}">&laquo;</a></li>
+            {% else %}
+            <li class="disabled"><a>&laquo;</a></li>
+            {% endif %} {% for p in pages %}
+            <li class="{% if p = active_page%}active{% endif %}"><a href=".?page={{p}}">{{p}}</a></li>
+            {% endfor %} {% if next_page %}
+            <li><a href=".?page={{next_page}}">&raquo;</a></li>
+            {% else %}
+            <li class="disabled"><a>&laquo;</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <article>
+        <table class="table table-bordered">
+            <thead>
+                <th>#</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Score</th>
+                <th>Date</th>
+            </thead>
+            <tbody>
+                {% for s in stories %}
+                <tr class="sentiment-{{s.sentiment_result|lower}}">
+                    <td>
+                        {{s.index}}
+                    </td>
+                    <td>
+                        <span title="{{s.sentiment_result}} sentiment" class="glyphicon glyphicon-{% if s.sentiment_result == 'Positive' %}chevron-up{% elif s.sentiment_result == 'Neutral' %}minus{% else %}chevron-down{% endif %}"></span>
+                        <a href="{{s.url}}">{{s.title}}</a>
+                    </td>
+                    <td>{{s.author}}</td>
+                    <td><span class="glyphicon glyphicon-thumbs-up"></span>{{s.score}}</td>
+                    <td>{{s.timestamp | naturaltime}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </article>
+</section>
+{% endblock %}
