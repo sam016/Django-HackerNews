@@ -43,7 +43,7 @@
             {% else %}
             <li class="disabled"><a>&laquo;</a></li>
             {% endif %} {% for p in pages %}
-            <li class="{% if p = active_page%}active{% endif %}"><a href=".?page={{p}}">{{p}}</a></li>
+            <li class="{% if p == active_page%}active{% endif %}"><a href=".?page={{p}}">{{p}}</a></li>
             {% endfor %} {% if next_page %}
             <li><a href=".?page={{next_page}}">&raquo;</a></li>
             {% else %}
