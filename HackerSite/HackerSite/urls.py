@@ -17,6 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import RedirectView
 
 from . import views
 from Stories.api import StoryResource
@@ -24,6 +25,7 @@ from Stories.api import StoryResource
 story_resource = StoryResource()
 
 urlpatterns = [
+    url(r'^$', RedirectView.as_view(url='/Stories')),
     url(r'^(?i)AboutUs', views.about_us),
     url(r'^(?i)ContactUs', views.contact_us),
     url(r'^(?i)Stories/', include('Stories.urls')),

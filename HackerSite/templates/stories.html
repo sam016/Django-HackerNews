@@ -1,0 +1,82 @@
+{% extends 'sk/base.html' %} {% load humanize %} {% block content %}
+<link rel="stylesheet" href="/static/css/story.css">
+<section>
+
+    <header class="row">
+        <div class="heading absolute">
+            <a href=".">Stories</a>
+        </div>
+
+        <div class="search-box absolute">
+            <!-- <div class="input-group"> -->
+            <input type="text" class="form-control fixed" value="{{search_query|default_if_none:" "}}" placeholder="Search here..." onkeypress="if(event.which==13){location='/Stories/Search/'+this.value;}" />
+            <!-- </div> -->
+        </div>
+        <!-- /input-group -->
+    </header>
+
+    {% for s in stories %}
+    <article class="story">
+        <header>
+            <div>
+                <span class="heading">
+                <a href="{{s.url}}">{{s.title}}</a>
+              </span>
+
+                <span rel="votes">
+                  <span class="glyphicon glyphicon-thumbs-up"></span> {{s.score}}
+                </span>
+            </div>
+            <div rel="article-info">
+                <span class="sentiment sentiment-{{s.sentiment_result|lower}}" title="{{s.sentiment_result}}">
+                {% if s.sentiment_result == 'Positive'  %}&#x1F60A;
+                {% elif s.sentiment_result == 'Neutral' %}&#x1F60C;
+                {% elif s.sentiment_result == 'Negative' %}&#x1F616;
+                {% endif %}
+              </span>
+                <span rel="author">
+                <span class="glyphicon glyphicon-user"></span> {{s.by}}
+                </span>
+                <span rel="time" title="{{s.timestamp}}">
+                <span class="glyphicon glyphicon-time"></span> {{s.timestamp|naturaltime}}
+                </span>
+            </div>
+        </header>
+        <p>
+            {{s.desc|safe}}
+        </p>
+
+        <!-- <tr class="sentiment-{{s.sentiment_result|lower}}" data-hash="{{s.id}}">
+            <td>
+                {{s.index}}
+            </td>
+            <td>
+                <span title="{{s.sentiment_result}} sentiment" class="glyphicon glyphicon-{% if s.sentiment_result == 'Positive' %}chevron-up{% elif s.sentiment_result == 'Neutral' %}minus{% else %}chevron-down{% endif %}"></span>
+                <a href="{{s.url}}">{{s.title}}</a>
+            </td>
+            <td>{{s.by}}</td>
+            <td><span class="glyphicon glyphicon-thumbs-up"></span>{{s.score}}</td>
+            <td>{{s.timestamp | naturaltime}}</td>
+        </tr> -->
+    </article>
+    {% endfor %} {% if has_pages %}
+
+    <div style="text-align:center;">
+        <ul class="pagination" style="margin:0;">
+            {% if prev_page %}
+            <li><a href=".?page={{prev_page}}">&laquo;</a></li>
+            {% else %}
+            <li class="disabled"><a>&laquo;</a></li>
+            {% endif %} {% for p in pages %}
+            <li class="{% if p == active_page%}active{% endif %}"><a href=".?page={{p}}">{{p}}</a></li>
+            {% endfor %} {% if next_page %}
+            <li><a href=".?page={{next_page}}">&raquo;</a></li>
+            {% else %}
+            <li class="disabled"><a>&raquo;</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    {% endif %}
+</section>
+<script type="text/javascript" src="/static/js/story.js"></script>
+{% endblock %}

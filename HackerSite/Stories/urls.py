@@ -22,4 +22,5 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index),
+    url(r'^(?i)Search/([^/]+)/', views.search),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
