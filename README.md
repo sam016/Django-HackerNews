@@ -2,6 +2,8 @@
 
 **[Django-HackerNews](http://sam016.pythonanywhere.com/Stories/)** is a web application which lets user access the top news in HackerNews using their public community API in [mashape](https://www.mashape.com). It also displays the underlying sentiment of the article.
 
+*It's not live on pythonanywhere.com anymore. Please feel free to clone and run it using the command below.*
+
 ## Functionality
   1. **Lists** the currently top trending articles on HN.
   1. **Sentiment**: For each of the top articles, provides an additional visual aid which tells the viewer whether the article has a positive sentiment or not.  
